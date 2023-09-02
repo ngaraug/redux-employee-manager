@@ -1,0 +1,45 @@
+.navContainer{
+    margin-left: 1rem;
+}
+.navButton{
+    background-color: lightgray;
+    text-decoration: none;
+    width: 7rem;
+    height: 2rem;
+    margin: 0.2rem;
+}
+.navButton:hover{
+    background-color: gray;
+}
+
+.createFormContainer{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.createForm{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.createForm > *{
+    margin: 1rem;
+}
+.readContainer{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.readCard{
+    background-color: rgb(224, 224, 224);
+    width: 35vw;
+    display: flex;
+    /* flex-direction: column; */
+    /* align-items: center; */
+    justify-content: space-evenly;
+
+    margin-top: 1rem;
+}
