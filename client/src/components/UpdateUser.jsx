@@ -13,7 +13,7 @@ export default function UpdateUser() {
     
     useEffect(() => {
         if (id){
-            const singleUser = allUsers.filter((user)=> user.id === id)
+            const singleUser = allUsers.filter((user)=> user._id === id)
             setUpdatedData(singleUser[0])
         }
     }, [])
@@ -33,8 +33,11 @@ export default function UpdateUser() {
 
     const handleSubmit = (e)=>{
         e.preventDefault()
+        // console.log(updatedData)
         dispatch(updateUser(updatedData))
-        navigate('/read')
+        .then(()=> navigate('/read'))
+        .catch(err=> console.log(err))
+        
     }
     
     if(!isEmpty(updatedData)){

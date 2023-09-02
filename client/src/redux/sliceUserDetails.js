@@ -10,7 +10,8 @@ export const createUser = createAsyncThunk( "createUser", async (data)=>{
     //     }, 
     //     body: JSON.stringify(data)
     // })
-
+    try {
+        console.log(data)
     const response = await fetch("http://localhost:3000/api/create", {
         method: "POST",
         headers: {
@@ -18,10 +19,8 @@ export const createUser = createAsyncThunk( "createUser", async (data)=>{
         }, 
         body: JSON.stringify(data)
     })
-
-    try {
-        console.log(response)
-        const result = response.json()
+        const result = await response.json()
+        
         return result
     } catch (err) {
         console.log("Error while posting data")
@@ -33,12 +32,14 @@ export const createUser = createAsyncThunk( "createUser", async (data)=>{
 
 // Read Action
     export const readUsers = createAsyncThunk('readUsers', async ()=>{
-        const response = await fetch("https://64f245410e1e60602d24f4e5.mockapi.io/crud", {
-            method: 'GET', 
-        })
+        
 
         try {
-            const result = response.json()
+            const response = await fetch("http://localhost:3000/api/read", {
+                method: 'GET', 
+            })
+            const result = await response.json()
+            console.log(result)
             return result
         } catch (err) {
             console.log("Error while reading data")
@@ -48,16 +49,18 @@ export const createUser = createAsyncThunk( "createUser", async (data)=>{
 
 // Update action
 export const updateUser = createAsyncThunk( "updateUser", async (data)=>{
-    const response = await fetch(`https://64f245410e1e60602d24f4e5.mockapi.io/crud/${data.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        }, 
-        body: JSON.stringify(data)
-    })
-
     try {
-        const result = response.json()
+        const response = await fetch(`http://localhost:3000/api/update`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            }, 
+            body: JSON.stringify(data)
+        })
+
+ 
+        const result = await response.json()
+        console.log(result)
         return result
     } catch (err) {
         return err
@@ -66,13 +69,13 @@ export const updateUser = createAsyncThunk( "updateUser", async (data)=>{
 
 // Delete action
 export const deleteUsers = createAsyncThunk('deleteUser', async (id)=>{
-    const response = await fetch(`https://64f245410e1e60602d24f4e5.mockapi.io/crud/${id}`, {
-        method: "DELETE",
-
-    })
-
     try {
-        const result = response.json()
+    const response = await fetch(`http://localhost:3000/api/delete/${id}`, {
+        method: "DELETE",
+    })
+    
+        const result = await response.json()
+        console.log(result)
         return result
     } catch (err) {
         console.log("Error while deleting")
@@ -100,7 +103,7 @@ export const userDetails = createSlice({
             state.users  = action.payload
         },
         [readUsers.rejected]: (state, action)=>{
-            state.users = action.payload()
+            state.users = action.payload
         },
         // Update
         [updateUser.fulfilled]: (state, action)=>{
@@ -114,14 +117,14 @@ export const userDetails = createSlice({
         // Delete
         [deleteUsers.fulfilled]: (state, action)=>{
             // state.users  = action.payload
-            const { id } = action.payload
-            if( id ){
-                state.users =  state.users.filter((ele)=> ele.id !== id )
+            const { success } = action.payload
+            if( success ){
+                // state.users =  state.users.filter((ele)=> ele.id !== id )
             }
             
         },
         [deleteUsers.rejected]: (state, action)=>{
-            state.users = action.payload()
+            state.users = action.payload
         }
     }
 })

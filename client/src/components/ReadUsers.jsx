@@ -19,15 +19,18 @@ export default function ReadUsers() {
         <div className='readContainer'>
             {users &&
                 users.map((ele)=>{
-                    return (<div key={ele.id} className='readCard'>
+                    return (<div key={ele._id} className='readCard'>
                     <h3>{ele.name}</h3>
                     <div>
                         <p>salary: {ele.salary}</p>
                         <p>age: {ele.age}</p>
                     </div>
                     <div>
-                        <p> <Link to={`/edit/${ele.id}`}>Update</Link></p>
-                        <p> <button onClick={()=> dispatch(deleteUsers(ele.id))}>Delete</button></p> 
+                        <p> <Link to={`/edit/${ele._id}`}>Update</Link></p>
+                        <p> <button onClick={()=> {
+                            dispatch(deleteUsers(ele._id))
+                            .then(()=>dispatch(readUsers()))}}>Delete</button>
+                        </p> 
                     </div>
                 </div>)
             })
