@@ -12,7 +12,7 @@ export const createUser = createAsyncThunk( "createUser", async (data)=>{
     // })
     try {
         console.log(data)
-    const response = await fetch("http://localhost:3000/api/create", {
+    const response = await fetch("https://redux-employee-manager-backend.vercel.app/api/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const createUser = createAsyncThunk( "createUser", async (data)=>{
         
 
         try {
-            const response = await fetch("http://localhost:3000/api/read", {
+            const response = await fetch("https://redux-employee-manager-backend.vercel.app/api/read", {
                 method: 'GET', 
             })
             const result = await response.json()
@@ -50,7 +50,7 @@ export const createUser = createAsyncThunk( "createUser", async (data)=>{
 // Update action
 export const updateUser = createAsyncThunk( "updateUser", async (data)=>{
     try {
-        const response = await fetch(`http://localhost:3000/api/update`, {
+        const response = await fetch(`https://redux-employee-manager-backend.vercel.app/api/update`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export const updateUser = createAsyncThunk( "updateUser", async (data)=>{
 // Delete action
 export const deleteUsers = createAsyncThunk('deleteUser', async (id)=>{
     try {
-    const response = await fetch(`http://localhost:3000/api/delete/${id}`, {
+    const response = await fetch(`https://redux-employee-manager-backend.vercel.app/api/delete/${id}`, {
         method: "DELETE",
     })
     
